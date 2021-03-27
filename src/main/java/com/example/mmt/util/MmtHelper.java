@@ -213,13 +213,17 @@ public class MmtHelper {
         TreeSet<Flight> list = map.get(new Pair<String, String>(inputPayload.getSrc(), inputPayload.getDest()));
 
         List<Map<String, Map<String, Long>>> result = new ArrayList<>();
-        for(Flight schedule : list) {
-            Map<String, Map<String, Long>> node = new HashMap<>();
-            String key = schedule.getSource() + "_" + schedule.getDestination();
-            Map<String, Long> value = new HashMap<String, Long>() {{ put(schedule.getFlightNumber(), schedule.getDurationInMinute());}};
-            node.put(key, value);
-            result.add(node);
+
+        if(list != null) {
+            for(Flight schedule : list) {
+                Map<String, Map<String, Long>> node = new HashMap<>();
+                String key = schedule.getSource() + "_" + schedule.getDestination();
+                Map<String, Long> value = new HashMap<String, Long>() {{ put(schedule.getFlightNumber(), schedule.getDurationInMinute());}};
+                node.put(key, value);
+                result.add(node);
+            }
         }
+
         return result;
     }
 }
